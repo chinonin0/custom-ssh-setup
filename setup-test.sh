@@ -30,17 +30,17 @@ cat > /etc/apache2/sites-available/https-tunnel.conf <<EOF
     SSLCertificateKeyFile /etc/apache2/ssl/proxy.key
 
     # Enable CONNECT method for HTTPS tunneling
-    LoadModule proxy_connect_module modules/mod_proxy_connect.so 
-	  ProxyRequests On 
-	  AllowCONNECT 22 
-	  <Proxy *>
+	ProxyRequests On 
+	AllowCONNECT 22 
+	RequestReadTimeout header=0,MinRate=500 body=0,MinRate=500
+	<Proxy *>
 		  Require all denied
-	  </Proxy>
-	 # See the article's comments below, you may have to allow for the 'ServerName' here, instead of 127.0.0.1 
+	</Proxy>
+	# See the article's comments below, you may have to allow for the 'ServerName' here, instead of 127.0.0.1 
   	<Proxy 127.0.0.1:22> 
   		# Enable proxying to our localhost:22
 		Require all granted 
-	  </Proxy>
+	</Proxy>
     
 </VirtualHost>
 </IfModule>
