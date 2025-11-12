@@ -23,7 +23,7 @@ openssl req -x509 -nodes -days 365 \
 cat > /etc/apache2/sites-available/https-tunnel.conf <<EOF
 <IfModule mod_ssl.c>
 <VirtualHost *:443>
-    ServerName test
+    ServerName vps-ssh-forward
 
     SSLEngine on
     SSLCertificateFile /etc/apache2/ssl/proxy.crt
@@ -38,6 +38,10 @@ cat > /etc/apache2/sites-available/https-tunnel.conf <<EOF
 	</Proxy>
 	# See the article's comments below, you may have to allow for the 'ServerName' here, instead of 127.0.0.1 
   	<Proxy 127.0.0.1:22> 
+  		# Enable proxying to our localhost:22
+		Require all granted 
+	</Proxy>
+	<Proxy vps-ssh-forward:22> 
   		# Enable proxying to our localhost:22
 		Require all granted 
 	</Proxy>
