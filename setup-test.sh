@@ -65,4 +65,7 @@ systemctl enable apache2
 sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
 sed -i 's/^#*PermitRootLogin.*/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
 sed -i 's/^#*AllowTcpForwarding.*/AllowTcpForwarding yes/' /etc/ssh/sshd_config
+
+echo 'GatewayPorts yes' >> /etc/ssh/sshd_config 
+
 systemctl restart sshd
