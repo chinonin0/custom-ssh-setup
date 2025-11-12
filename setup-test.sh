@@ -41,6 +41,9 @@ cat > /etc/apache2/sites-available/https-tunnel.conf <<EOF
   		# Enable proxying to our localhost:22
 		Require all granted 
 	</Proxy>
+
+	ErrorLog /tmp/https_tunnel_error.log
+    CustomLog /tmp/https_tunnel_access.log combined
     
 </VirtualHost>
 </IfModule>
